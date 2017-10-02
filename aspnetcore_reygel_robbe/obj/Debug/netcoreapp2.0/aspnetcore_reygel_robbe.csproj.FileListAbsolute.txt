@@ -1,0 +1,11 @@
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\bin\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.deps.json
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\bin\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.runtimeconfig.json
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\bin\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.runtimeconfig.dev.json
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\bin\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.dll
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\bin\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.pdb
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\obj\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.csprojResolveAssemblyReference.cache
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\obj\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.csproj.CoreCompileInputs.cache
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\obj\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.AssemblyInfoInputs.cache
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\obj\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.AssemblyInfo.cs
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\obj\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.dll
+C:\Users\ere\source\repos\aspnetcore_reygel_robbe\aspnetcore_reygel_robbe\obj\Debug\netcoreapp2.0\aspnetcore_reygel_robbe.pdb

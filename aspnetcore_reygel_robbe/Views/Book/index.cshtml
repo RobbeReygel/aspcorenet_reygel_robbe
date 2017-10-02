@@ -1,0 +1,26 @@
+﻿@Model  BookListViewModel
+
+@{
+ViewData["Title"] = "Overzicht boeken";
+}
+
+
+
+<table style="width:100%">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Date</th>
+    </tr>
+
+    @foreach (var book in Model.Books)
+    {
+        <tr>
+            <td><a href="books/@book.Id">@book.Title</a></td>
+            <td>@book.Author</td>
+            <td>@book.ISBN</td>
+            <td>@book.CreationDate.ToShortDateString()</td>
+        </tr>
+    }
+</table>
