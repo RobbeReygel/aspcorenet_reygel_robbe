@@ -1,22 +1,13 @@
-﻿@Model  BookListViewModel
+﻿@model BookDetailViewModel
 
 @{
-    ViewData["Title"] = "Detail boeken";
+    ViewData["Title"] = "Detail " + Model.Title + ", door " + Model.Author;
 }
 
 <div class="row">
     <div class="col-md-12">
-            @foreach (var book in Model.Books)
-            {
-                @if (@book.Id == @ViewBag.Message)
-                {
-                    <h1>@book.Title</h1>
-                    <hr />
-                    <h3>Author: @book.Author</h3>
-                    <p>ISBN: @book.ISBN</p>
-                    <p>Published: @book.CreationDate.ToShortDateString()</p>
-
-                }
-            }
+        <div>
+            De titel is @Model.Title , de auteur is @Model.Author en de isbn is @Model.ISBN
+        </div>
     </div>
 </div>

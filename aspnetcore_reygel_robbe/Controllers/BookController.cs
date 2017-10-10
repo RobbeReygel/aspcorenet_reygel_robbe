@@ -1,65 +1,74 @@
-﻿using aspnetcore_reygel_robbe.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using aspnetcore_reygel_robbe.Data;
+using aspnetcore_reygel_robbe.Models;
+using aspnetcore_reygel_robbe.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace aspnetcore_reygel_robbe.Controllers
 {
     public class BookController : Controller
     {
-        [HttpGet("books")]
+        private readonly EntityContext _entityContext;
+
+        public BookController(EntityContext entityContext)
+        {
+            _entityContext = entityContext;
+        }
+        
+        [HttpGet("/books")]
         public IActionResult Index()
         {
-
             var model = new BookListViewModel();
-
             model.Books = new List<BookDetailViewModel>();
-
-
-            model.Books.Add(new BookDetailViewModel() { Id = 1, Author = "Author 1", Title = "Title1", ISBN = "isbn1", CreationDate = new DateTime(2016, 3, 12) });
-            model.Books.Add(new BookDetailViewModel() { Id = 2, Author = "Author 2", Title = "Title2", ISBN = "isbn2", CreationDate = new DateTime(2013, 7, 7) });
-            model.Books.Add(new BookDetailViewModel() { Id = 3, Author = "Author 3", Title = "Title3", ISBN = "isbn3", CreationDate = new DateTime(2016, 11, 18) });
-            model.Books.Add(new BookDetailViewModel() { Id = 4, Author = "Author 4", Title = "Title4", ISBN = "isbn4", CreationDate = new DateTime(2015, 9, 2) });
-
+            var allBooks = _entityContext.Books.Include(x => x.Authors).ThenInclude(x => x.Author).ToList();
+            foreach (var book in allBooks)
+            {
+                var vm = ConvertBookDetailViewModel(book);
+                model.Books.Add(vm);
+            }
             return View(model);
+        }
 
-            //Dictionary<int, BookDetailViewModel> Books = new Dictionary<int, BookDetailViewModel>();
-
-
-            //Books.Add(1, new BookDetailViewModel() { Id = 1, Author = "Author 1", Title = "Title1", ISBN = "isbn1", CreationDate = new DateTime(2016, 3, 12) });
-            //Books.Add(2, new BookDetailViewModel() { Id = 2, Author = "Author 2", Title = "Title2", ISBN = "isbn2", CreationDate = new DateTime(2013, 7, 7) });
-            //Books.Add(3, new BookDetailViewModel() { Id = 3, Author = "Author 3", Title = "Title3", ISBN = "isbn3", CreationDate = new DateTime(2016, 11, 18) });
-            //Books.Add(4, new BookDetailViewModel() { Id = 4, Author = "Author 4", Title = "Title4", ISBN = "isbn4", CreationDate = new DateTime(2015, 9, 2) });
-
-            // ViewData["Books"] = Books;
-
-            //return View(ViewData);
-
+        private static BookDetailViewModel ConvertBookDetailViewModel(Book book)
+        {
+            var vm = new BookDetailViewModel();
+            vm.Id = book.Id;
+            vm.Title = book.Title;
+            //vm.Genre = book.GenreId;
+            vm.Author = String.Join(",", book.Authors.Select(x => x.Author.FullName));            
+            return vm;
         }
 
         [HttpGet("/books/{id}")]
-        public IActionResult Detail([FromRoute]int id)
-        {
-
-            var model = new BookListViewModel();
-
-            model.Books = new List<BookDetailViewModel>();
-
-            Dictionary<string, BookDetailViewModel> dic = new Dictionary<string, BookDetailViewModel>();
-
-            model.Books.Add(new BookDetailViewModel() { Id = 1, Author = "Author 1", Title = "Title1", ISBN = "isbn1", CreationDate = new DateTime(2016, 3, 12) });
-            model.Books.Add(new BookDetailViewModel() { Id = 2, Author = "Author 2", Title = "Title2", ISBN = "isbn2", CreationDate = new DateTime(2013, 7, 7) });
-            model.Books.Add(new BookDetailViewModel() { Id = 3, Author = "Author 3", Title = "Title3", ISBN = "isbn3", CreationDate = new DateTime(2016, 11, 18) });
-            model.Books.Add(new BookDetailViewModel() { Id = 4, Author = "Author 4", Title = "Title4", ISBN = "isbn4", CreationDate = new DateTime(2015, 9, 2) });
-
-            if (id == 0)
+        public IActionResult Detail([FromRoute] int id)
+        {   
+            /*
+            var vm = new BookDetailViewModel();
+            var instance = _entityContext.Books.Include(x => x.Authors).FirstOrDefault(x => x.Id == id);
+            if (instance == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
-
-            ViewBag.Message = id;
-
-            return View(model);
+            vm = ConvertBookDetailViewModel(instance);
+            return View(vm);
+            */
+            var book = _entityContext.Books.Include(x => x.Authors).ThenInclude(x => x.Author).FirstOrDefault(x => x.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            var vm = new BookDetailViewModel();
+            foreach (var ba in book.Authors)
+            {
+                vm.Author += $"{ba.Author.FullName}, ";
+            }
+            vm.Title = book.Title;
+            vm.Id = book.Id;
+            return View(vm);
         }
+        
     }
 }

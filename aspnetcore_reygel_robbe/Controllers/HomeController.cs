@@ -18,12 +18,8 @@ namespace aspnetcore_reygel_robbe.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-            var model = new AboutModel();
-            {
-                model.Name = "xyz";
-                model.DaysUntilBirthDay = (new DateTime(2017, 09, 30) - DateTime.Now).TotalDays; 
-            };
-            return View(model);
+
+            return View();
         }
 
         public IActionResult Contact()
